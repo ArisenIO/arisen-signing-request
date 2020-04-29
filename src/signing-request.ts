@@ -1,8 +1,8 @@
 /**
- * EOSIO Signing Request (ESR).
+ * ARISEN Signing Request (ESR).
  */
 
-import {Serialize} from 'eosjs'
+import {Serialize} from '@arisencore/js'
 import sha256 from 'fast-sha256'
 
 import * as abi from './abi'
@@ -105,7 +105,7 @@ export interface TransactionContext {
 /** Chain ID aliases. */
 export enum ChainName {
     UNKNOWN = 0,
-    EOS = 1,
+    RIX = 1,
     TELOS = 2,
     JUNGLE = 3,
     KYLIN = 4,
@@ -122,7 +122,7 @@ export enum ChainName {
 }
 
 const ChainIdLookup = new Map<abi.ChainAlias, abi.ChainId>([
-    [ChainName.EOS, 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'],
+    [ChainName.RIX, '136ce1b8190928711b8bb50fcae6c22fb620fd2c340d760873cf8f7ec3aba2b3'],
     [ChainName.TELOS, '4667b205c6838ef70ff7988f6e8257e8be0e1284a2f59699054a018f743b1d11'],
     [ChainName.JUNGLE, 'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473'],
     [ChainName.KYLIN, '5fff1dae8dc8e2fc4d5b23b2c7665c97f9e9d8edf2b6485a86ba311c25639191'],
@@ -146,24 +146,24 @@ const ChainIdLookup = new Map<abi.ChainAlias, abi.ChainId>([
  *
  * Example action:
  * ```
- * { account: "eosio.token",
+ * { account: "arisen.token",
  *   name: "transfer",
  *   authorization: [{actor: "............1", permission: "............1"}],
  *   data: {
  *     from: "............1",
  *     to: "bar",
- *     quantity: "42.0000 EOS",
+ *     quantity: "42.0000 RIX",
  *     memo: "Don't panic" }}
  * ```
  * When signed by `foo@active` would resolve to:
  * ```
- * { account: "eosio.token",
+ * { account: "arisen.token",
  *   name: "transfer",
  *   authorization: [{actor: "foo", permission: "active"}],
  *   data: {
  *     from: "foo",
  *     to: "bar",
- *     quantity: "42.0000 EOS",
+ *     quantity: "42.0000 RIX",
  *     memo: "Don't panic" }}
  * ```
  */
@@ -191,7 +191,7 @@ export interface SigningRequestCreateArguments {
     transaction?: {actions: abi.Action[]; [key: string]: any}
     /** Create an identity request. */
     identity?: abi.Identity
-    /** Chain to use, defaults to EOS main-net if omitted. */
+    /** Chain to use, defaults to RIX main-net if omitted. */
     chainId?: string | number
     /** Whether wallet should broadcast tx, defaults to true. */
     broadcast?: boolean
@@ -209,7 +209,7 @@ export interface SigningRequestCreateIdentityArguments {
      * Callback where the identity should be delivered.
      */
     callback: CallbackType
-    /** Chain to use, defaults to EOS if omitted. */
+    /** Chain to use, defaults to RIX if omitted. */
     chainId?: string | number
     /**
      * Requested account name of identity.
@@ -681,7 +681,7 @@ export class SigningRequest {
             }
             const contract = getContract(contractAbi)
             if (signer) {
-                // hook into eosjs name decoder and return the signing account if we encounter the placeholder
+                // hook into @arisencore/js name decoder and return the signing account if we encounter the placeholder
                 // this is fine because getContract re-creates the initial types each time
                 contract.types.get('name')!.deserialize = (buffer: Serialize.SerialBuffer) => {
                     const name = buffer.getName()
@@ -1067,7 +1067,7 @@ export class ResolvedSigningRequest {
     }
 }
 
-/** Internal helper that creates a contract representation from an abi for the eosjs serializer. */
+/** Internal helper that creates a contract representation from an abi for the @arisencore/js serializer. */
 function getContract(contractAbi: any): Serialize.Contract {
     const types = Serialize.getTypesFromAbi(Serialize.createInitialTypes(), contractAbi)
     const actions = new Map<string, Serialize.Type>()
@@ -1108,7 +1108,7 @@ async function serializeAction(
 
 function variantId(chainId?: abi.ChainId | abi.ChainAlias): abi.VariantId {
     if (!chainId) {
-        chainId = ChainName.EOS
+        chainId = ChainName.RIX
     }
     if (typeof chainId === 'number') {
         return ['chain_alias', chainId]

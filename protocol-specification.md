@@ -1,6 +1,6 @@
-# EOSIO URI Protocol Specification
+# ARISEN URI Protocol Specification
 
-The `esr://` URI protocol uses the same binary format as the EOSIO blockchain, encoded using an url-safe Base64 variant ([Base64u](#base64u)).
+The `esr://` URI protocol uses the same binary format as the ARISEN blockchain, encoded using an url-safe Base64 variant ([Base64u](#base64u)).
 
 ### Example
 
@@ -13,7 +13,7 @@ The URI `esr://gWNgZGBY1mTC_MoglIGBIVzX5uxZRqAQGMBoQxgDAjRiF2SwgVksrv7BIFqgOCOxK
     "req": [
       "action",
       {
-        "account": "eosio.token",
+        "account": "arisen.token",
         "name": "transfer",
         "authorization": [{
             "actor": "............1", "permission": "............1"
@@ -37,7 +37,7 @@ Which when resolved using the `bar@active` permission and TAPoS values of
   "transaction": {
     "actions": [
       {
-        "account": "eosio.token",
+        "account": "arisen.token",
         "name": "transfer",
         "authorization": [{
             "actor": "bar", "permission": "active"
@@ -45,7 +45,7 @@ Which when resolved using the `bar@active` permission and TAPoS values of
         "data": {
           "from": "bar",
           "to": "foo",
-          "quantity": "42.0000 EOS",
+          "quantity": "42.0000 RIX",
           "memo": "share and enjoy!"
         }
       }
@@ -64,7 +64,7 @@ Which when resolved using the `bar@active` permission and TAPoS values of
 
 ## Request data
 
-The request data is the Base64-decoded `esr://` payload and consists of a 1-byte header and the EOSIO encoded request struct.
+The request data is the Base64-decoded `esr://` payload and consists of a 1-byte header and the ARISEN encoded request struct.
 
 ```
 header  request
@@ -91,11 +91,11 @@ The signing request payload.
 Represented as a C++ struct:
 
 ```cpp
-#include <eosiolib/eosio.hpp>
-#include <eosiolib/action.hpp>
-#include <eosiolib/transaction.hpp>
+#include <arisenlib/arisen.hpp>
+#include <arisenlib/action.hpp>
+#include <arisenlib/transaction.hpp>
 
-using namespace eosio;
+using namespace arisen;
 using namespace std;
 
 typedef checksum256 chain_id;
@@ -114,11 +114,11 @@ struct signing_request {
 }
 ```
 
-Represented as an EOSIO ABI:
+Represented as an ARISEN ABI:
 
 ```json
 {
-  "version": "eosio::abi/1.1",
+  "version": "arisen::abi/1.1",
   "types": [
     {
       "new_type_name": "account_name",
@@ -330,25 +330,25 @@ The name `............1` is reserved as the placeholder name and when resolving 
 
 Example:
 ```js
-{ account: "eosio.token",
+{ account: "arisen.token",
   name: "transfer",
   authorization: [{actor: "............1", permission: "............1"}],
   data: {
     from: "............1",
     to: "bar",
-    quantity: "42.0000 EOS",
+    quantity: "42.0000 RIX",
     memo: "Don't panic" }}
 ```
 
 When signed by `foo@active` would resolve to:
 ```js
-{ account: "eosio.token",
+{ account: "arisen.token",
   name: "transfer",
   authorization: [{actor: "foo", permission: "active"}],
   data: {
     from: "foo",
     to: "bar",
-    quantity: "42.0000 EOS",
+    quantity: "42.0000 RIX",
     memo: "Don't panic" }}
 ```
 
@@ -359,7 +359,7 @@ The following aliases are defined
   value  | name     | chain_id
  --------|----------|----------
   `0x00` | RESERVED |
-  `0x01` | EOS      | `aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906`
+  `0x01` | RIX      | `aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906`
   `0x02` | TELOS    | `4667b205c6838ef70ff7988f6e8257e8be0e1284a2f59699054a018f743b1d11`
 
 TODO: add all known chains

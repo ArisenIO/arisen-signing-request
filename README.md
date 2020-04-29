@@ -1,12 +1,12 @@
-# eosio-signing-request (ESR - Revision 2)
-![version](https://badgen.net/npm/v/eosio-signing-request?style=for-the-badge)
-![license](https://badgen.net/npm/license/eosio-signing-request?style=for-the-badge)
-![downloads](https://badgen.net/npm/dw/eosio-signing-request?style=for-the-badge)
+# arisen-signing-request (ESR - Revision 2)
+![version](https://badgen.net/npm/v/arisen-signing-request?style=for-the-badge)
+![license](https://badgen.net/npm/license/arisen-signing-request?style=for-the-badge)
+![downloads](https://badgen.net/npm/dw/arisen-signing-request?style=for-the-badge)
 
-A library to assist with the EOSIO Signing Request (ESR) protocol.
+A library to assist with the ARISEN Signing Request (ESR) protocol.
 The full specification for ESR is available here:
 
-https://github.com/eosio-eps/EEPs/blob/master/EEPS/eep-7.md
+https://github.com/arisen-eps/EEPs/blob/master/EEPS/eep-7.md
 
 The ESR protocol allows for an application (dapp) to generate signature requests (transactions) which can then be passed to signers (wallets) for signature creation. These signature requests can be used within URI links, QR Codes, or other transports between applications and signers.
 
@@ -14,49 +14,49 @@ The ESR protocol allows for an application (dapp) to generate signature requests
 
 ## Installation
 
-To add eosio-signing-request to your project, install via the package manager of your choice:
+To add arisen-signing-request to your project, install via the package manager of your choice:
 
 #### NPM
 
-```npm install eosio-signing-request```
+```npm install arisen-signing-request```
 
 #### Yarn
 
-```yarn add eosio-signing-request```
+```yarn add arisen-signing-request```
 
 ---
 
 ## Signing Request Flow
 
-In an environment where an ***application/dapp*** is requesting that an end user perform a transaction within their preferred ***signer/wallet***, each of these applications will utilize the `eosio-signing-request` library to fulfill different roles.
+In an environment where an ***application/dapp*** is requesting that an end user perform a transaction within their preferred ***signer/wallet***, each of these applications will utilize the `arisen-signing-request` library to fulfill different roles.
 
 - The ***application/dapp*** will be creating and encoding the signing request.
 - The ***signer/wallet*** will be decoding and resolving the signing request.
 
 The specification itself then allows either the ***signer/wallet*** itself to broadcast the finalized transaction, or the transaction/signature themselves can be passed back to the ***application/dapp*** to broadcast.
 
-The `eosio-signing-request` library is not responsible for transporting this information between the ***application/dapp***
+The `arisen-signing-request` library is not responsible for transporting this information between the ***application/dapp***
 and ***signer/wallet***, and so this topic will not be covered in this README.
 
 ---
 
 ## Usage Examples
 
-These examples will use nodejs to create and manipulate a signing request, which can then be sent to any compatible signer for signature creation and ultimately sent to an EOSIO blockchain.
+These examples will use nodejs to create and manipulate a signing request, which can then be sent to any compatible signer for signature creation and ultimately sent to an ARISEN blockchain.
 
 The code within this README will show partial snippets of the process, with full working examples located here:
 
-https://github.com/greymass/eosio-signing-request-demo
+https://github.com/greymass/arisen-signing-request-demo
 
 #### Sample Transaction/Actions
 
-To create a signing request, the first piece of data we need is either an EOSIO transaction or action(s). For all examples in this README we will use the `eosio:voteproducer` action to set a proxy of `greymassvote`.
+To create a signing request, the first piece of data we need is either an ARISEN transaction or action(s). For all examples in this README we will use the `arisen:voteproducer` action to set a proxy of `greymassvote`.
 
 The actions are as follows:
 
 ```
 const actions = [{
-    account: 'eosio',
+    account: 'arisen',
     name: 'voteproducer',
     authorization: [{
       actor: '............1',
@@ -94,14 +94,14 @@ const opts = {
     },
     // Customizable ABI Provider used to retrieve contract data
     abiProvider: {
-        getAbi: async (account) => (await eos.getAbi(account))
+        getAbi: async (account) => (await rix.getAbi(account))
     }
 }
 ```
 
 ### Creating a Signing Request
 
-With the above actions established, to create the signing request itself we use the eosio-signing-request library and its `create` method. The full working example to create this request [can be found here](https://github.com/greymass/eosio-signing-request-demo/blob/master/examples/encode.js).
+With the above actions established, to create the signing request itself we use the arisen-signing-request library and its `create` method. The full working example to create this request [can be found here](https://github.com/greymass/arisen-signing-request-demo/blob/master/examples/encode.js).
 
 (ES8 or TypeEcript)
 ```
@@ -125,7 +125,7 @@ SigningRequest {
     req: [
       'action',
       {
-        account: 'eosio',
+        account: 'arisen',
         name: 'voteproducer',
         authorization: [ { actor: '............1', permission: '............2' } ],
         data: '0100000000000000A032DD181BE9D56500'
@@ -155,17 +155,17 @@ esr://gmNgZGRkAIFXBqEFopc6760yugsVYWBggtKCMIEFRnclpF9eTWUACgAA
 
 These encoded strings can be shared and viewed by a number of applications, including:
 
-**EOSIO.to**
+**ARISEN.to**
 
-This website is a utility which allows the viewing of a signing request as well as the opportunity to create a signature for it.  The above encoded request can be passed to the eosio.to domain:
+This website is a utility which allows the viewing of a signing request as well as the opportunity to create a signature for it.  The above encoded request can be passed to the arisen.to domain:
 
-https://eosio.to/gmNgZGRkAIFXBqEFopc6760yugsVYWBggtKCMIEFRnclpF9eTWUACgAA
+https://arisen.to/gmNgZGRkAIFXBqEFopc6760yugsVYWBggtKCMIEFRnclpF9eTWUACgAA
 
-**EOSIO URI Builder**
+**ARISEN URI Builder**
 
 This web application allows for the viewing, editing, and customization of signing requests. The above encoded request can be passed to the builder via a URL parameter:
 
-https://greymass.github.io/eosio-uri-builder/gmNgZGRkAIFXBqEFopc6760yugsVYWBggtKCMIEFRnclpF9eTWUACgAA
+https://greymass.github.io/arisen-uri-builder/gmNgZGRkAIFXBqEFopc6760yugsVYWBggtKCMIEFRnclpF9eTWUACgAA
 
 ### Decoding a Signing Request
 
@@ -175,7 +175,7 @@ Using the encoded signing request generated in the example above:
 const uri = 'esr://gmNgZGRkAIFXBqEFopc6760yugsVYWBggtKCMIEFRnclpF9eTWUACgAA'
 ```
 
-Another application can now decode this request into an instance of a `SigningRequest` with the `from` method. The full working example for [decoding can be found here](https://github.com/greymass/eosio-signing-request-demo/blob/master/examples/decode.js).
+Another application can now decode this request into an instance of a `SigningRequest` with the `from` method. The full working example for [decoding can be found here](https://github.com/greymass/arisen-signing-request-demo/blob/master/examples/decode.js).
 
 ```
 const decoded = SigningRequest.from(uri, opts)
@@ -192,7 +192,7 @@ SigningRequest {
       'action[]',
       [
         {
-          account: 'eosio',
+          account: 'arisen',
           name: 'voteproducer',
           authorization: [ { actor: '............1', permission: '............2' } ],
           data: '0100000000000000A032DD181BE9D56500'
@@ -224,10 +224,10 @@ With an instance of a `SigningRequest` available, a signing application can now 
 - Templates the transaction, removing any placeholders and resolving it to be used by a specific end user.
 - Serializes the transaction for use within the signer.
 
-This step now requires that the application understand who the user is, and have access to the blockchain itself to retrieve TAPOS values. The full example of the code below to [resolve a signing request can be found here](https://github.com/greymass/eosio-signing-request-demo/blob/master/examples/resolve.js).
+This step now requires that the application understand who the user is, and have access to the blockchain itself to retrieve TAPOS values. The full example of the code below to [resolve a signing request can be found here](https://github.com/greymass/arisen-signing-request-demo/blob/master/examples/resolve.js).
 
 ```
-// An encoded eosio:voteproducer transaction
+// An encoded arisen:voteproducer transaction
 const uri = 'esr://gmNgZGRkAIFXBqEFopc6760yugsVYWBggtKCMIEFRnclpF9eTWUACgAA'
 
 // Decode the URI
@@ -269,7 +269,7 @@ ResolvedSigningRequest {
         'action[]',
         [
           {
-            account: 'eosio',
+            account: 'arisen',
             name: 'voteproducer',
             authorization: [ { actor: '............1', permission: '............2' } ],
             data: '0100000000000000A032DD181BE9D56500'
@@ -293,7 +293,7 @@ ResolvedSigningRequest {
   transaction: {
     actions: [
       {
-        account: 'eosio',
+        account: 'arisen',
         name: 'voteproducer',
         authorization: [ { actor: 'teamgreymass', permission: 'active' } ],
         data: { voter: 'teamgreymass', proxy: 'greymassvote', producers: [] }
@@ -329,4 +329,4 @@ This README will be updated further to provide more usage as time progresses. Th
 
 We have a telegram channel dedicated to the development of this protocol which you can find here:
 
-https://t.me/eosio_signing_request
+https://t.me/arisen_signing_request

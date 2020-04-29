@@ -72,7 +72,7 @@ export interface RequestSignature {
 }
 
 export const data = {
-    version: 'eosio::abi/1.1',
+    version: 'arisen::abi/1.1',
     types: [
         {
             new_type_name: 'account_name',

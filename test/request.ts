@@ -30,10 +30,10 @@ describe('signing request', function() {
         const request = await SigningRequest.create(
             {
                 action: {
-                    account: 'eosio.token',
+                    account: 'arisen.token',
                     name: 'transfer',
                     authorization: [{actor: 'foo', permission: 'active'}],
-                    data: {from: 'foo', to: 'bar', quantity: '1.000 EOS', memo: 'hello there'},
+                    data: {from: 'foo', to: 'bar', quantity: '1.000 RIX', memo: 'hello there'},
                 },
             },
             options
@@ -43,7 +43,7 @@ describe('signing request', function() {
             req: [
                 'action',
                 {
-                    account: 'eosio.token',
+                    account: 'arisen.token',
                     name: 'transfer',
                     authorization: [{actor: 'foo', permission: 'active'}],
                     data:
@@ -65,16 +65,16 @@ describe('signing request', function() {
                 },
                 actions: [
                     {
-                        account: 'eosio.token',
+                        account: 'arisen.token',
                         name: 'transfer',
                         authorization: [{actor: 'foo', permission: 'active'}],
-                        data: {from: 'foo', to: 'bar', quantity: '1.000 EOS', memo: 'hello there'},
+                        data: {from: 'foo', to: 'bar', quantity: '1.000 RIX', memo: 'hello there'},
                     },
                     {
-                        account: 'eosio.token',
+                        account: 'arisen.token',
                         name: 'transfer',
                         authorization: [{actor: 'baz', permission: 'active'}],
-                        data: {from: 'baz', to: 'bar', quantity: '1.000 EOS', memo: 'hello there'},
+                        data: {from: 'baz', to: 'bar', quantity: '1.000 RIX', memo: 'hello there'},
                     },
                 ],
             },
@@ -86,14 +86,14 @@ describe('signing request', function() {
                 'action[]',
                 [
                     {
-                        account: 'eosio.token',
+                        account: 'arisen.token',
                         name: 'transfer',
                         authorization: [{actor: 'foo', permission: 'active'}],
                         data:
                             '000000000000285D000000000000AE39E80300000000000003454F53000000000B68656C6C6F207468657265',
                     },
                     {
-                        account: 'eosio.token',
+                        account: 'arisen.token',
                         name: 'transfer',
                         authorization: [{actor: 'baz', permission: 'active'}],
                         data:
@@ -118,7 +118,7 @@ describe('signing request', function() {
                     max_cpu_usage_ms: 99,
                     actions: [
                         {
-                            account: 'eosio.token',
+                            account: 'arisen.token',
                             name: 'transfer',
                             authorization: [{actor: 'foo', permission: 'active'}],
                             data:
@@ -136,7 +136,7 @@ describe('signing request', function() {
                 {
                     actions: [
                         {
-                            account: 'eosio.token',
+                            account: 'arisen.token',
                             name: 'transfer',
                             authorization: [{actor: 'foo', permission: 'active'}],
                             data:
@@ -169,7 +169,7 @@ describe('signing request', function() {
             req: [
                 'action',
                 {
-                    account: 'eosio.token',
+                    account: 'arisen.token',
                     name: 'transfer',
                     authorization: [{actor: PlaceholderName, permission: PlaceholderName}],
                     data:
@@ -186,10 +186,10 @@ describe('signing request', function() {
         const request = await SigningRequest.create(
             {
                 action: {
-                    account: 'eosio.token',
+                    account: 'arisen.token',
                     name: 'transfer',
                     authorization: [{actor: 'foo', permission: 'active'}],
-                    data: {from: 'foo', to: 'bar', quantity: '1.000 EOS', memo: 'hello there'},
+                    data: {from: 'foo', to: 'bar', quantity: '1.000 RIX', memo: 'hello there'},
                 },
             },
             options
@@ -208,10 +208,10 @@ describe('signing request', function() {
         assert.deepStrictEqual(tx, {
             actions: [
                 {
-                    account: 'eosio.token',
+                    account: 'arisen.token',
                     name: 'transfer',
                     authorization: [{actor: 'foo', permission: 'active'}],
-                    data: {from: 'foo', to: 'bar', quantity: '1.000 EOS', memo: 'hello there'},
+                    data: {from: 'foo', to: 'bar', quantity: '1.000 RIX', memo: 'hello there'},
                 },
             ],
             context_free_actions: [],
@@ -229,13 +229,13 @@ describe('signing request', function() {
         const request = await SigningRequest.create(
             {
                 action: {
-                    account: 'eosio.token',
+                    account: 'arisen.token',
                     name: 'transfer',
                     authorization: [PlaceholderAuth],
                     data: {
                         from: '............1',
                         to: '............2',
-                        quantity: '1.000 EOS',
+                        quantity: '1.000 RIX',
                         memo: 'hello there',
                     },
                 },
@@ -256,10 +256,10 @@ describe('signing request', function() {
         assert.deepStrictEqual(tx, {
             actions: [
                 {
-                    account: 'eosio.token',
+                    account: 'arisen.token',
                     name: 'transfer',
                     authorization: [{actor: 'foo', permission: 'mractive'}],
-                    data: {from: 'foo', to: 'mractive', quantity: '1.000 EOS', memo: 'hello there'},
+                    data: {from: 'foo', to: 'mractive', quantity: '1.000 RIX', memo: 'hello there'},
                 },
             ],
             context_free_actions: [],
@@ -281,7 +281,7 @@ describe('signing request', function() {
                     background: true,
                 },
                 action: {
-                    account: 'eosio.token',
+                    account: 'arisen.token',
                     name: 'transfer',
                     authorization: [{actor: PlaceholderName, permission: PlaceholderName}],
                     data: {
@@ -366,10 +366,10 @@ describe('signing request', function() {
         const req1 = await SigningRequest.create(
             {
                 action: {
-                    account: 'eosio.token',
+                    account: 'arisen.token',
                     name: 'transfer',
                     authorization: [{actor: 'foo', permission: 'active'}],
-                    data: {from: 'foo', to: 'bar', quantity: '1.000 EOS', memo: 'hello there'},
+                    data: {from: 'foo', to: 'bar', quantity: '1.000 RIX', memo: 'hello there'},
                 },
             },
             {...options, signatureProvider}
@@ -466,10 +466,10 @@ describe('signing request', function() {
         const request = await SigningRequest.create(
             {
                 action: {
-                    account: 'eosio.token',
+                    account: 'arisen.token',
                     name: 'transfer',
                     authorization: [{actor: 'foo', permission: 'active'}],
-                    data: {from: 'foo', to: 'bar', quantity: '1.000 EOS', memo: 'hello there'},
+                    data: {from: 'foo', to: 'bar', quantity: '1.000 RIX', memo: 'hello there'},
                 },
                 callback: 'https://example.com/?sig={{sig}}&tx={{tx}}'
             },
@@ -495,10 +495,10 @@ describe('signing request', function() {
         const request = await SigningRequest.create(
             {
                 action: {
-                    account: 'eosio.token',
+                    account: 'arisen.token',
                     name: 'transfer',
                     authorization: [{actor: 'foo', permission: 'active'}],
-                    data: {from: 'foo', to: 'bar', quantity: '1.000 EOS', memo: ''},
+                    data: {from: 'foo', to: 'bar', quantity: '1.000 RIX', memo: ''},
                 },
             },
             options
