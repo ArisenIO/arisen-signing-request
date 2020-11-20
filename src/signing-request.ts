@@ -1,5 +1,5 @@
 /**
- * ARISEN Signing Request (ESR).
+ * ARISEN Signing Request (ASR).
  */
 
 import {Serialize} from '@arisencore/js'
@@ -578,7 +578,7 @@ export class SigningRequest {
      * @argument compress Whether to compress the request data using zlib,
      *                    defaults to true if omitted and zlib is present;
      *                    otherwise false.
-     * @argument slashes Whether add slashes after the protocol scheme, i.e. `esr://`.
+     * @argument slashes Whether add slashes after the protocol scheme, i.e. `asr://`.
      *                   Defaults to true.
      * @returns An esr uri string.
      */

@@ -3,7 +3,7 @@ import {join as joinPath} from 'path'
 import {AbiProvider} from '../../src'
 
 // To add an ABI for testing run (in project root):
-// CONTRACT=arisen.token; arisecli -u https://rix.greymass.com get abi $CONTRACT > test/abis/$CONTRACT.json
+// CONTRACT=arisen.token; arisecli -u https://rsn.arisenio.com get abi $CONTRACT > test/abis/$CONTRACT.json
 
 export class MockAbiProvider implements AbiProvider {
     constructor(public readonly abis: Map<string, any>) {}

@@ -1,7 +1,7 @@
 {
   "name": "arisen-signing-request",
   "version": "1.0.0",
-  "description": "ARISEN Signing Request (ESR / EEP-7) encoder and decoder",
+  "description": "ARISEN Signing Request (ASR / EEP-7) encoder and decoder",
   "license": "MIT",
   "module": "lib/index.js",
   "main": "lib/index.umd.js",

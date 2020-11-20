@@ -161,7 +161,7 @@ describe('signing request', function() {
 
     it('should create from uri', async function() {
         const request = await SigningRequest.from(
-            'esr://gmNgZGBY1mTC_MoglIGBIVzX5uxZRqAQGMBoExgDAjRi4fwAVz93ICUckpGYl12skJZfpFCSkaqQllmcwczAAAA',
+            'asr://gmNgZGBY1mTC_MoglIGBIVzX5uxZRqAQGMBoExgDAjRi4fwAVz93ICUckpGYl12skJZfpFCSkaqQllmcwczAAAA',
             options
         )
         assert.deepStrictEqual(request.data, {
@@ -297,7 +297,7 @@ describe('signing request', function() {
         const encoded = req1.encode()
         assert.strictEqual(
             encoded,
-            'esr://gmNgZGBY1mTC_MoglIGBIVzX5uxZRqAQGMBoExgDAjRi4fwAVz93ICUckpGYl12skJZfpFCSkaqQllmcwczAAAA'
+            'asr://gmNgZGBY1mTC_MoglIGBIVzX5uxZRqAQGMBoExgDAjRi4fwAVz93ICUckpGYl12skJZfpFCSkaqQllmcwczAAAA'
         )
         const req2 = SigningRequest.from(encoded, options)
         assert.deepStrictEqual(req2.data, req1.data)
@@ -378,7 +378,7 @@ describe('signing request', function() {
         let encoded = req1.encode()
         assert.strictEqual(
             encoded,
-            'esr://gmNgZGBY1mTC_MoglIGBIVzX5uxZoAgIaMSCyBVvjYx0kAUYGNZZvmCGsJhd_YNBNHdGak5OvkJJRmpRKlQ3WLl8anjWFNWd23XWfvzTcy_qmtRx5mtMXlkSC23ZXle6K_NJFJ4SVTb4O026Wb1G5Wx0u1A3-_G4rAPsBp78z9lN7nddAQA'
+            'asr://gmNgZGBY1mTC_MoglIGBIVzX5uxZoAgIaMSCyBVvjYx0kAUYGNZZvmCGsJhd_YNBNHdGak5OvkJJRmpRKlQ3WLl8anjWFNWd23XWfvzTcy_qmtRx5mtMXlkSC23ZXle6K_NJFJ4SVTb4O026Wb1G5Wx0u1A3-_G4rAPsBp78z9lN7nddAQA'
         )
         let req2 = SigningRequest.from(encoded, options)
         assert.deepStrictEqual(req2.data, req1.data)
@@ -387,9 +387,9 @@ describe('signing request', function() {
 
     it('should encode and decode test requests', async function() {
         let req1uri =
-            'esr://gmNgZGBY1mTC_MoglIGBIVzX5uxZRqAQGMBoExgDAjRi4fwAVz93ICUckpGYl12skJZfpFCSkaqQllmcwczAAAA'
+            'asr://gmNgZGBY1mTC_MoglIGBIVzX5uxZRqAQGMBoExgDAjRi4fwAVz93ICUckpGYl12skJZfpFCSkaqQllmcwczAAAA'
         let req2uri =
-            'esr://gmNgZGBY1mTC_MoglIGBIVzX5uxZRqAQGMBoExgDAjRi4fwAVz93ICUckpGYl12skJZfpFCSkaqQllmcwQxREVOsEcsgX-9-jqsy1EhNQM_GM_FkQMIziUU1VU4PsmOn_3r5hUMumeN3PXvdSuWMm1o9u6-FmCwtPvR0haqt12fNKtlWzTuiNwA'
+            'asr://gmNgZGBY1mTC_MoglIGBIVzX5uxZRqAQGMBoExgDAjRi4fwAVz93ICUckpGYl12skJZfpFCSkaqQllmcwQxREVOsEcsgX-9-jqsy1EhNQM_GM_FkQMIziUU1VU4PsmOn_3r5hUMumeN3PXvdSuWMm1o9u6-FmCwtPvR0haqt12fNKtlWzTuiNwA'
         let req1 = SigningRequest.from(req1uri, options)
         let req2 = SigningRequest.from(req2uri, options)
         assert.deepStrictEqual(
@@ -407,7 +407,7 @@ describe('signing request', function() {
     })
 
     it('should generate correct identity requests', async function() {
-        let reqUri = 'esr://AgABAwACJWh0dHBzOi8vY2guYW5jaG9yLmxpbmsvMTIzNC00NTY3LTg5MDAA'
+        let reqUri = 'asr://AgABAwACJWh0dHBzOi8vY2guYW5jaG9yLmxpbmsvMTIzNC00NTY3LTg5MDAA'
         let req = SigningRequest.from(reqUri, options)
         assert.strictEqual(req.isIdentity(), true)
         assert.strictEqual(req.getIdentity(), null)
@@ -515,7 +515,7 @@ describe('signing request', function() {
 
     it('should resolve templated callback urls', async function () {
         const req1uri =
-            'esr://gmNgZGBY1mTC_MoglIGBIVzX5uxZRqAQGDBBaUWYAARoxMIkGAJDIyAM9YySkoJiK3391IrE3IKcVL3k_Fz7kgrb6uqSitpataQ8ICspr7aWAQA'
+            'asr://gmNgZGBY1mTC_MoglIGBIVzX5uxZRqAQGDBBaUWYAARoxMIkGAJDIyAM9YySkoJiK3391IrE3IKcVL3k_Fz7kgrb6uqSitpataQ8ICspr7aWAQA'
         const req1 = SigningRequest.from(req1uri, options)
         const abis = await req1.fetchAbis()
         const resolved = await req1.resolve(

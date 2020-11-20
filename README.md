@@ -1,14 +1,14 @@
-# arisen-signing-request (ESR - Revision 2)
+# arisen-signing-request (ASR - Revision 2)
 ![version](https://badgen.net/npm/v/arisen-signing-request?style=for-the-badge)
 ![license](https://badgen.net/npm/license/arisen-signing-request?style=for-the-badge)
 ![downloads](https://badgen.net/npm/dw/arisen-signing-request?style=for-the-badge)
 
-A library to assist with the ARISEN Signing Request (ESR) protocol.
-The full specification for ESR is available here:
+A library to assist with the ARISEN Signing Request (ASR) protocol.
+The full specification for ASR is available here:
 
-https://github.com/arisen-eps/EEPs/blob/master/EEPS/eep-7.md
+https://github.com/eosio-eps/EEPs/blob/master/EEPS/eep-7.md
 
-The ESR protocol allows for an application (dapp) to generate signature requests (transactions) which can then be passed to signers (wallets) for signature creation. These signature requests can be used within URI links, QR Codes, or other transports between applications and signers.
+The ASR protocol allows for an application (dapp) to generate signature requests (transactions) which can then be passed to signers (wallets) for signature creation. These signature requests can be used within URI links, QR Codes, or other transports between applications and signers.
 
 ---
 
@@ -46,11 +46,11 @@ These examples will use nodejs to create and manipulate a signing request, which
 
 The code within this README will show partial snippets of the process, with full working examples located here:
 
-https://github.com/greymass/arisen-signing-request-demo
+https://github.com/arisenio/arisen-signing-request-demo
 
 #### Sample Transaction/Actions
 
-To create a signing request, the first piece of data we need is either an ARISEN transaction or action(s). For all examples in this README we will use the `arisen:voteproducer` action to set a proxy of `greymassvote`.
+To create a signing request, the first piece of data we need is either an ARISEN transaction or action(s). For all examples in this README we will use the `arisen:voteproducer` action to set a proxy of `ariseniovote`.
 
 The actions are as follows:
 
@@ -64,7 +64,7 @@ const actions = [{
     }],
     data: {
         voter: '............1',
-        proxy: 'greymassvote',
+        proxy: 'ariseniovote',
         producers: [],
     }
 }]
@@ -94,14 +94,14 @@ const opts = {
     },
     // Customizable ABI Provider used to retrieve contract data
     abiProvider: {
-        getAbi: async (account) => (await rix.getAbi(account))
+        getAbi: async (account) => (await rsn.getAbi(account))
     }
 }
 ```
 
 ### Creating a Signing Request
 
-With the above actions established, to create the signing request itself we use the arisen-signing-request library and its `create` method. The full working example to create this request [can be found here](https://github.com/greymass/arisen-signing-request-demo/blob/master/examples/encode.js).
+With the above actions established, to create the signing request itself we use the arisen-signing-request library and its `create` method. The full working example to create this request [can be found here](https://github.com/arisenio/arisen-signing-request-demo/blob/master/examples/encode.js).
 
 (ES8 or TypeEcript)
 ```
@@ -150,7 +150,7 @@ const encoded = request.encode()
 This `encoded` variable will now contain a string we can either pass directly to the signer via URI, QRCode or any other method.  The string itself is:
 
 ```
-esr://gmNgZGRkAIFXBqEFopc6760yugsVYWBggtKCMIEFRnclpF9eTWUACgAA
+asr://gmNgZGRkAIFXBqEFopc6760yugsVYWBggtKCMIEFRnclpF9eTWUACgAA
 ```
 
 These encoded strings can be shared and viewed by a number of applications, including:
@@ -165,17 +165,17 @@ https://arisen.to/gmNgZGRkAIFXBqEFopc6760yugsVYWBggtKCMIEFRnclpF9eTWUACgAA
 
 This web application allows for the viewing, editing, and customization of signing requests. The above encoded request can be passed to the builder via a URL parameter:
 
-https://greymass.github.io/arisen-uri-builder/gmNgZGRkAIFXBqEFopc6760yugsVYWBggtKCMIEFRnclpF9eTWUACgAA
+https://arisenio.github.io/arisen-uri-builder/gmNgZGRkAIFXBqEFopc6760yugsVYWBggtKCMIEFRnclpF9eTWUACgAA
 
 ### Decoding a Signing Request
 
 Using the encoded signing request generated in the example above:
 
 ```
-const uri = 'esr://gmNgZGRkAIFXBqEFopc6760yugsVYWBggtKCMIEFRnclpF9eTWUACgAA'
+const uri = 'asr://gmNgZGRkAIFXBqEFopc6760yugsVYWBggtKCMIEFRnclpF9eTWUACgAA'
 ```
 
-Another application can now decode this request into an instance of a `SigningRequest` with the `from` method. The full working example for [decoding can be found here](https://github.com/greymass/arisen-signing-request-demo/blob/master/examples/decode.js).
+Another application can now decode this request into an instance of a `SigningRequest` with the `from` method. The full working example for [decoding can be found here](https://github.com/arisenio/arisen-signing-request-demo/blob/master/examples/decode.js).
 
 ```
 const decoded = SigningRequest.from(uri, opts)
@@ -224,11 +224,11 @@ With an instance of a `SigningRequest` available, a signing application can now 
 - Templates the transaction, removing any placeholders and resolving it to be used by a specific end user.
 - Serializes the transaction for use within the signer.
 
-This step now requires that the application understand who the user is, and have access to the blockchain itself to retrieve TAPOS values. The full example of the code below to [resolve a signing request can be found here](https://github.com/greymass/arisen-signing-request-demo/blob/master/examples/resolve.js).
+This step now requires that the application understand who the user is, and have access to the blockchain itself to retrieve TAPOS values. The full example of the code below to [resolve a signing request can be found here](https://github.com/arisenio/arisen-signing-request-demo/blob/master/examples/resolve.js).
 
 ```
 // An encoded arisen:voteproducer transaction
-const uri = 'esr://gmNgZGRkAIFXBqEFopc6760yugsVYWBggtKCMIEFRnclpF9eTWUACgAA'
+const uri = 'asr://gmNgZGRkAIFXBqEFopc6760yugsVYWBggtKCMIEFRnclpF9eTWUACgAA'
 
 // Decode the URI
 const decoded = SigningRequest.from(uri, opts)
@@ -242,7 +242,7 @@ const abis = await decoded.fetchAbis();
 
 // An authorization to resolve the transaction to
 const authorization = {
-    actor: 'teamgreymass',
+    actor: 'teamarisenio',
     permission: 'active',
 }
 
@@ -289,14 +289,14 @@ ResolvedSigningRequest {
     abiProvider: { getAbi: [AsyncFunction: getAbi] },
     signature: undefined
   },
-  signer: { actor: 'teamgreymass', permission: 'active' },
+  signer: { actor: 'teamarisenio', permission: 'active' },
   transaction: {
     actions: [
       {
         account: 'arisen',
         name: 'voteproducer',
-        authorization: [ { actor: 'teamgreymass', permission: 'active' } ],
-        data: { voter: 'teamgreymass', proxy: 'greymassvote', producers: [] }
+        authorization: [ { actor: 'teamarisenio', permission: 'active' } ],
+        data: { voter: 'teamarisenio', proxy: 'ariseniovote', producers: [] }
       }
     ],
     context_free_actions: [],
